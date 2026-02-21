@@ -3,64 +3,582 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vladyslav Korniichuk's Website</title>
+    <title>Vladyslav Korniichuk - Cloud & DevOps Portfolio</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☁️</text></svg>">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
     <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --bg-color: #f8f9fa;
+            --text-color: #333333;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --nav-bg: rgba(255, 255, 255, 0.9);
+        }
+        
+        body.dark-mode {
+            --primary-color: #e2e8f0;
+            --secondary-color: #60a5fa;
+            --bg-color: #0f172a;
+            --text-color: #cbd5e1;
+            --card-bg: #1e293b;
+            --border-color: #334155;
+            --nav-bg: rgba(15, 23, 42, 0.9);
+        }
+        
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
             margin: 0;
             padding: 0;
-            background-color: #f0f2f5;
-            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95em;
+            padding-bottom: 3px;
+            border-bottom: 2px solid transparent;
+            transition: color 0.3s, border-color 0.3s;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: -55px;
+            right: 20px;
+            background-color: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85em;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--secondary-color);
+            color: var(--secondary-color);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            margin-top: 40px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            font-size: 2.8em;
+            letter-spacing: -0.5px;
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            font-weight: 400;
+            font-size: 1.2em;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .hero-actions {
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
         }
-        .container {
-            max-width: 800px;
-            margin: 20px;
+
+        .btn-primary {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: #fff !important;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(52, 152, 219, 0.2);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background-color: #2980b9;
+        }
+
+        .contact-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .contact-links a:hover { color: var(--secondary-color); }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        section {
+            background: var(--card-bg);
             padding: 30px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            text-align: center;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-color);
+            transition: background-color 0.3s, border-color 0.3s;
         }
-        h1 {
-            color: #0056b3; 
+
+        h3 {
+            color: var(--primary-color);
+            font-size: 1.5em;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .terminal {
+            background-color: #111827;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 25px;
+        }
+        .terminal-header {
+            background-color: #1f2937;
+            padding: 10px 15px;
+            display: flex;
+            gap: 8px;
+        }
+        .t-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .t-red { background-color: #ef4444; }
+        .t-yellow { background-color: #eab308; }
+        .t-green { background-color: #22c55e; }
+        
+        .terminal-body {
+            padding: 20px;
+            font-family: 'Fira Code', monospace;
+            color: #e5e7eb;
+            font-size: 0.95em;
+        }
+        .t-prompt { color: #22c55e; font-weight: bold; margin-right: 8px; }
+        .t-command { color: #60a5fa; }
+
+        .timeline {
+            border-left: 2px solid var(--secondary-color);
+            margin-left: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        .timeline-item:last-child { margin-bottom: 0; }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -34px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--card-bg);
+            border: 2px solid var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            transition: background-color 0.3s;
+        }
+        .timeline-item:hover::before {
+            background-color: var(--secondary-color);
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: rgba(52, 152, 219, 0.1);
+            color: var(--secondary-color);
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85em;
+            padding: 4px 10px;
+            border-radius: 6px;
+            margin: 4px 4px 0 0;
+            border: 1px solid rgba(52, 152, 219, 0.2);
+            transition: all 0.2s ease;
+        }
+        body.dark-mode .badge {
+            background-color: rgba(96, 165, 250, 0.1);
+            border-color: rgba(96, 165, 250, 0.2);
+        }
+        .badge:hover { background-color: var(--secondary-color); color: #ffffff; }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .skill-category strong { display: block; color: var(--primary-color); margin-bottom: 8px; }
+
+        .job-header, .edu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
             margin-bottom: 10px;
         }
-        h2 {
-            color: #555;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 5px;
-            margin-top: 25px;
+        .job-header strong, .edu-header strong { font-size: 1.1em; color: var(--primary-color); }
+        .date {
+            color: var(--secondary-color);
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85em;
+            background: rgba(127, 140, 141, 0.1);
+            padding: 4px 10px;
+            border-radius: 12px;
         }
-        p {
-            font-size: 1.1em;
-            line-height: 1.6;
+
+        ul { margin-top: 5px; padding-left: 20px; }
+        li { margin-bottom: 8px; }
+
+        .project {
+            padding: 20px;
+            border-radius: 8px;
+            background: var(--bg-color);
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
         }
-        .footer {
-            margin-top: 30px;
+        .project:hover {
+            transform: translateX(4px);
+            border-left-color: var(--secondary-color);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            margin-top: 15px;
+            color: var(--card-bg);
+            background-color: var(--secondary-color);
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
             font-size: 0.9em;
-            color: #888;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+        .project-link:hover { background-color: var(--primary-color); transform: translateY(-2px); }
+
+        #back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            font-size: 1.2em;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        #back-to-top:hover { background-color: #2980b9; transform: translateY(-3px); }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            color: #7f8c8d;
+            font-size: 0.9em;
         }
     </style>
 </head>
-<body>
+<body class="dark-mode">
+
+    <nav>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#education" class="nav-link">Education</a>
+    </nav>
 
     <div class="container">
-        <h1>Vladyslav Korniichuk</h1>
-        
-        <p>Welcome to my personal website </p>
+        <button class="theme-toggle" id="theme-toggle">🌓 Theme</button>
 
-        <h2>About Me</h2>
-        <p>
-            ....
-        </p>
-        <div class="footer">
-            <p>&copy; 2025 Vladyslav Korniichuk. All rights reserved.</p>
+        <header class="reveal">
+            <h1>Vladyslav Korniichuk</h1>
+            <h2>Cloud, DevOps & Data Science Student</h2>
+            
+            <div class="hero-actions">
+                <a href="CV_Vladyslav_Korniichuk_Informatyka.pdf" class="btn-primary" download>📄 Download CV</a>
+                <div class="contact-links">
+                    <a href="mailto:vlad.korniychuk12@gmail.com">Email</a> •
+                    <a href="https://linkedin.com/in/vladyslav-korniichuk" target="_blank">LinkedIn</a> •
+                    <a href="https://github.com/VladyslavKorniichuk" target="_blank">GitHub</a>
+                </div>
+            </div>
+        </header>
+
+        <section id="about" class="reveal" style="padding: 0; border: none; background: transparent; box-shadow: none;">
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="t-dot t-red"></div>
+                    <div class="t-dot t-yellow"></div>
+                    <div class="t-dot t-green"></div>
+                </div>
+                <div class="terminal-body">
+                    <span class="t-prompt">vlad@devops:~$</span><span class="t-command">cat about_me.txt</span>
+                    <br><br>
+                    I am an Informatics student with a dual specialization in Cloud Technologies and Data Science/DevOps. I hold certifications from Cisco and SoftServe, combining administrative knowledge (Linux, AWS) with programming skills (Python).
+                    <br><br>
+                    <span class="t-prompt">vlad@devops:~$</span><span class="t-command">echo $GOAL</span>
+                    <br><br>
+                    Seeking an internship or Junior position in Data Science or DevOps, where I can apply my analytical and technical competencies in practical projects. <span style="animation: blink 1s step-end infinite;">█</span>
+                </div>
+            </div>
+        </section>
+        
+        <style>
+            @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        </style>
+
+        <section id="skills" class="reveal">
+            <h3>Technical Skills</h3>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <strong>OS, Scripting & Programming</strong>
+                    <span class="badge">Linux</span><span class="badge">Bash</span><span class="badge">Python</span><span class="badge">C#</span>
+                </div>
+                <div class="skill-category">
+                    <strong>Cloud & IaC</strong>
+                    <span class="badge">AWS</span><span class="badge">Azure</span><span class="badge">Terraform</span>
+                </div>
+                <div class="skill-category">
+                    <strong>CI/CD</strong>
+                    <span class="badge">GitHub Actions</span><span class="badge">Jenkins</span>
+                </div>
+                <div class="skill-category">
+                    <strong>Networking</strong>
+                    <span class="badge">TCP/IP</span><span class="badge">Security</span>
+                </div>
+                <div class="skill-category">
+                    <strong>Containerization</strong>
+                    <span class="badge">Kubernetes</span><span class="badge">Docker</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="reveal">
+            <h3>Experience</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="job-header">
+                        <strong>Engineering Trainee | KAMLEGIT</strong>
+                        <span class="date">03.2025 - 07.2025</span>
+                    </div>
+                    <ul>
+                        <li>Managed WordPress instances and administered Linux servers.</li>
+                        <li>Resolved ongoing technical problems and provided user support.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="reveal">
+            <h3>Projects & Open Source</h3>
+            <div class="project">
+                <div class="job-header">
+                    <strong>Python System Monitor</strong>
+                </div>
+                <ul>
+                    <li>Developed a containerized Python REST API for system monitoring.</li>
+                    <li>Orchestrated the application environment utilizing Docker Compose.</li>
+                    <li>Implemented an automated CI/CD pipeline using GitHub Actions.</li>
+                    <li>Managed code versioning and repository using Git.</li>
+                </ul>
+                <div style="margin-top: 10px;">
+                    <span class="badge">Python</span><span class="badge">REST API</span><span class="badge">Docker Compose</span><span class="badge">GitHub Actions</span>
+                </div>
+                <a href="https://github.com/VladyslavKorniichuk/python-system-monitor-docker" class="project-link" target="_blank">View on GitHub ↗</a>
+            </div>
+        </section>
+
+        <section id="education" class="reveal">
+            <h3>Education</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="edu-header">
+                        <strong>Informatics (BSc) - WSIIZ</strong>
+                        <span class="date">2023 - 2027</span>
+                    </div>
+                    <ul>
+                        <li><strong>Main Specialization:</strong> Data Science</li>
+                        <li><strong>Additional Specialization:</strong> Cloud Technologies and DevOps</li>
+                        <li><strong>GPA:</strong> 4.46</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="certifications" class="reveal">
+            <h3>Certifications</h3>
+            <ul>
+                <li><strong>Cisco & SoftServe</strong></li>
+                <li>CCNA: Introduction to Networks & Linux Essentials</li>
+                <li>DevOps I & II (Linux, Networks, CI/CD, Containers) & Python Fundamentals</li>
+            </ul>
+        </section>
+        
+        <section id="languages" class="reveal">
+            <h3>Languages</h3>
+            <ul>
+                <li><strong>Ukrainian</strong> - Native</li>
+                <li><strong>Polish</strong> - B2+</li>
+                <li><strong>English</strong> - B2</li>
+            </ul>
+        </section>
+
+        <div class="footer reveal">
+            <p>&copy; 2026 Vladyslav Korniichuk. All rights reserved.</p>
         </div>
     </div>
 
+    <button id="back-to-top" title="Go to top">↑</button>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        try {
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme === 'light') {
+                body.classList.remove('dark-mode');
+            }
+        } catch (e) {
+            console.log("Local storage blocked (likely running from file:///), defaulting to dark theme.");
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            try {
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            } catch (e) {
+
+            }
+        });
+
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 30; 
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal();
+        setTimeout(reveal, 100);
+
+        const sections = document.querySelectorAll("section");
+        const navLinks = document.querySelectorAll(".nav-link");
+
+        window.addEventListener("scroll", () => {
+            let current = "";
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 150) { 
+                    current = section.getAttribute("id");
+                }
+            });
+
+            navLinks.forEach((link) => {
+                link.classList.remove("active");
+                if (link.getAttribute("href").includes(current)) {
+                    link.classList.add("active");
+                }
+            });
+        });
+
+        const backToTopBtn = document.getElementById("back-to-top");
+
+        window.addEventListener("scroll", () => {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add("show");
+            } else {
+                backToTopBtn.classList.remove("show");
+            }
+        });
+
+        backToTopBtn.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+    </script>
 </body>
 </html>
