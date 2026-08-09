@@ -108,10 +108,15 @@
         }
 
         h1 {
-            color: var(--primary-color);
+            font-size: 3.2em;
+            font-weight: 800;
+            letter-spacing: -1px;
             margin-bottom: 5px;
-            font-size: 2.8em;
-            letter-spacing: -0.5px;
+            /* Градієнтний текст */
+            background: linear-gradient(135deg, var(--secondary-color), #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
         }
 
         h2 {
@@ -190,8 +195,10 @@
             background-color: #111827;
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             margin-bottom: 25px;
+            /* Легке світіння */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 15px rgba(52, 152, 219, 0.2);
+            border: 1px solid #374151;
         }
         .terminal-header {
             background-color: #1f2937;
@@ -241,23 +248,30 @@
             background-color: var(--secondary-color);
         }
 
+        /* Оновлені бейджі */
         .badge {
             display: inline-block;
             background-color: rgba(52, 152, 219, 0.1);
             color: var(--secondary-color);
             font-family: 'Fira Code', monospace;
             font-size: 0.85em;
-            padding: 4px 10px;
-            border-radius: 6px;
-            margin: 4px 4px 0 0;
-            border: 1px solid rgba(52, 152, 219, 0.2);
-            transition: all 0.2s ease;
+            padding: 6px 12px;
+            border-radius: 20px; 
+            margin: 4px 6px 4px 0;
+            border: 1px solid transparent; 
+            transition: all 0.3s ease;
+            font-weight: 500;
         }
         body.dark-mode .badge {
-            background-color: rgba(96, 165, 250, 0.1);
-            border-color: rgba(96, 165, 250, 0.2);
+            background-color: rgba(96, 165, 250, 0.15);
+            color: #93c5fd;
         }
-        .badge:hover { background-color: var(--secondary-color); color: #ffffff; }
+        .badge:hover { 
+            background-color: var(--secondary-color); 
+            color: #ffffff; 
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+        }
 
         .skills-grid {
             display: grid;
@@ -350,6 +364,41 @@
             color: #7f8c8d;
             font-size: 0.9em;
         }
+
+        /* Оновлена сітка для сертифікатів */
+        .cert-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .cert-item {
+            background: var(--bg-color);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--secondary-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+        
+        .cert-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border-left-color: #8b5cf6; 
+        }
+        
+        .cert-item h4 {
+            margin: 0 0 5px 0;
+            color: var(--primary-color);
+            font-size: 1.05em;
+        }
+        
+        .cert-item p {
+            margin: 0;
+            font-size: 0.9em;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
     </style>
 </head>
 <body class="dark-mode">
@@ -367,10 +416,10 @@
 
         <header class="reveal">
             <h1>Vladyslav Korniichuk</h1>
-            <h2>Cloud, DevOps & Data Science Student</h2>
+            <h2>IT Student | Aspiring DevOps & Cloud Admin</h2>
             
             <div class="hero-actions">
-                <a href="CV_Vladyslav_Korniichuk_Informatyka.pdf" class="btn-primary" download>📄 Download CV</a>
+                <a href="CV_Vladyslav_Korniichuk.pdf" class="btn-primary" download>📄 Download CV</a>
                 <div class="contact-links">
                     <a href="mailto:vlad.korniychuk12@gmail.com">Email</a> •
                     <a href="https://www.linkedin.com/in/vladyslav-korniichuk-06525a2a8/" target="_blank">LinkedIn</a> •
@@ -389,11 +438,13 @@
                 <div class="terminal-body">
                     <span class="t-prompt">vlad@devops:~$</span><span class="t-command">cat about_me.txt</span>
                     <br><br>
-                    I am an Informatics student with a dual specialization in Cloud Technologies and Data Science/DevOps. I hold certifications from Cisco and SoftServe, combining administrative knowledge (Linux, AWS) with programming skills (Python).
+                    Computer Science student at Wyższa Szkoła Informatyki i Zarządzania in Rzeszów. While my academic background includes Data Science, my professional focus and passion have strongly shifted towards System Administration, DevOps, and Cloud Computing.
+                    <br><br>
+                    I hold a strong theoretical foundation certified by Cisco (CCNA, Linux Essentials) and SoftServe (DevOps I & II), backed by practical experience in automating infrastructure and managing containerized applications.
                     <br><br>
                     <span class="t-prompt">vlad@devops:~$</span><span class="t-command">echo $GOAL</span>
                     <br><br>
-                    Seeking an internship or Junior position in Data Science or DevOps, where I can apply my analytical and technical competencies in practical projects. <span style="animation: blink 1s step-end infinite;">█</span>
+                    Looking for an internship or Junior IT role where I can apply my knowledge, build resilient systems, and learn from experienced mentors. <span style="animation: blink 1s step-end infinite;">█</span>
                 </div>
             </div>
         </section>
@@ -406,28 +457,24 @@
             <h3>Technical Skills</h3>
             <div class="skills-grid">
                 <div class="skill-category">
-                    <strong>OS, Scripting & Programming</strong>
-                    <span class="badge">Linux</span><span class="badge">Bash</span><span class="badge">Python</span><span class="badge">C#</span>
+                    <strong>OS & Scripting</strong>
+                    <span class="badge">Linux (Ubuntu/Debian)</span><span class="badge">Bash</span><span class="badge">Python</span>
                 </div>
                 <div class="skill-category">
-                    <strong>Cloud & IaC</strong>
-                    <span class="badge">AWS</span><span class="badge">Azure</span><span class="badge">Terraform</span>
+                    <strong>Containerization & Cloud</strong>
+                    <span class="badge">Docker</span><span class="badge">AWS</span><span class="badge">Terraform</span>
                 </div>
                 <div class="skill-category">
-                    <strong>CI/CD</strong>
-                    <span class="badge">GitHub Actions</span><span class="badge">Jenkins</span>
+                    <strong>Web Servers & Proxy</strong>
+                    <span class="badge">Traefik</span><span class="badge">Nginx</span><span class="badge">Apache</span>
                 </div>
                 <div class="skill-category">
-                    <strong>Networking</strong>
-                    <span class="badge">TCP/IP</span><span class="badge">Security</span>
+                    <strong>Development & DBs</strong>
+                    <span class="badge">C# / .NET 10</span><span class="badge">MS SQL Server</span><span class="badge">MySQL</span>
                 </div>
                 <div class="skill-category">
-                    <strong>Containerization</strong>
-                    <span class="badge">Kubernetes</span><span class="badge">Docker</span>
-                </div>
-                <div class="skill-category">
-                    <strong>Databases</strong>
-                    <span class="badge">SQL</span><span class="badge">T-SQL</span><span class="badge">MS SQL Server</span>
+                    <strong>Networking & Security</strong>
+                    <span class="badge">CCNA-level Networking</span><span class="badge">SSH</span><span class="badge">UFW/iptables</span>
                 </div>
             </div>
         </section>
@@ -435,16 +482,40 @@
         <section id="experience" class="reveal">
             <h3>Experience</h3>
             <div class="timeline">
+                
                 <div class="timeline-item">
                     <div class="job-header">
-                        <strong>Engineering Trainee | KAMLEGIT</strong>
-                        <span class="date">03.2025 - 07.2025</span>
+                        <strong>DevOps Engineer Intern | Helix Solutions Sp. z o.o</strong>
+                        <span class="date">April 2026 - August 2026</span>
                     </div>
                     <ul>
-                        <li>Managed WordPress instances and administered Linux servers.</li>
-                        <li>Resolved ongoing technical problems and provided user support.</li>
+                        <li>Developed a B2B "Environment as a Service" platform for automated provisioning and lifecycle management of isolated demo environments.</li>
+                        <li>Engineered a custom Docker Manager in C# to automate the lifecycle of Windows containers, enforcing strict hardware quotas and configuring persistent volume binds.</li>
+                        <li>Implemented dynamic reverse-proxy routing and resolved CORS conflicts using Traefik labels.</li>
+                        <li>Built an automated database provisioning microservice that restores .bak files into isolated MS SQL databases on the fly.</li>
+                        <li>Developed an automated container state reconciliation loop and a 2-phase TTL garbage collector to manage host resources.</li>
                     </ul>
+                    <div style="margin-top: 10px;">
+                        <span class="badge">C# / .NET 10</span><span class="badge">Docker</span><span class="badge">Traefik</span><span class="badge">MS SQL Server</span>
+                    </div>
                 </div>
+
+                <div class="timeline-item">
+                    <div class="job-header">
+                        <strong>System Administrator & DevOps Intern | KAMLEGIT</strong>
+                        <span class="date">March 2025 - July 2025</span>
+                    </div>
+                    <ul>
+                        <li>Administered Linux servers, managing system configurations, secure user access (SSH keys), and basic firewall rules (UFW/iptables).</li>
+                        <li>Developed automation scripts using Python and Bash to handle routine system maintenance, log rotation, and automated database backups.</li>
+                        <li>Managed the deployment, configuration, and monitoring of multi-node web environments (LAMP/LEMP stack) for high-traffic CMS platforms (WordPress).</li>
+                        <li>Performed infrastructure troubleshooting, monitoring system resources, and resolving server-side incidents.</li>
+                    </ul>
+                    <div style="margin-top: 10px;">
+                        <span class="badge">Linux</span><span class="badge">Python</span><span class="badge">Bash</span><span class="badge">LAMP/LEMP</span>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -471,13 +542,12 @@
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="edu-header">
-                        <strong>Informatics (BSc) - WSIIZ</strong>
-                        <span class="date">2023 - 2027</span>
+                        <strong>Wyższa Szkoła Informatyki i Zarządzania w Rzeszowie</strong>
+                        <span class="date">Oct 2023 - March 2027</span>
                     </div>
                     <ul>
-                        <li><strong>Main Specialization:</strong> Data Science</li>
-                        <li><strong>Additional Specialization:</strong> Cloud Technologies and DevOps</li>
-                        <li><strong>GPA:</strong> 4.46</li>
+                        <li><strong>Degree:</strong> Informatyka (studia inżynierskie) - Computer Science</li>
+                        <li><strong>Focus:</strong> Data Science, Cloud Computing & DevOps</li>
                     </ul>
                 </div>
             </div>
@@ -485,19 +555,44 @@
 
         <section id="certifications" class="reveal">
             <h3>Certifications</h3>
-            <ul>
-                <li><strong>Cisco & SoftServe</strong></li>
-                <li>CCNA: Introduction to Networks & Linux Essentials</li>
-                <li>DevOps I & II (Linux, Networks, CI/CD, Containers) & Python Fundamentals</li>
-            </ul>
+            <div class="cert-list">
+                <div class="cert-item">
+                    <h4>CyberSecurity Fundamentals</h4>
+                    <p>SoftServe • Issued Jun 2026</p>
+                </div>
+                <div class="cert-item">
+                    <h4>Database Fundamentals</h4>
+                    <p>SoftServe • Issued Apr 2026</p>
+                </div>
+                <div class="cert-item">
+                    <h4>Python Fundamentals</h4>
+                    <p>SoftServe • Issued Jan 2026</p>
+                </div>
+                <div class="cert-item">
+                    <h4>DevOps II: CI/CD, Containers And Cloud Fundamentals</h4>
+                    <p>SoftServe • Issued Nov 2025</p>
+                </div>
+                <div class="cert-item">
+                    <h4>DevOps I: Linux and Networks Fundamentals</h4>
+                    <p>SoftServe • Issued Sep 2025</p>
+                </div>
+                <div class="cert-item">
+                    <h4>Linux Essentials</h4>
+                    <p>Cisco Networking Academy • Issued Jun 2025</p>
+                </div>
+                <div class="cert-item">
+                    <h4>CCNA: Introduction to Networks</h4>
+                    <p>Cisco Networking Academy • Issued Jun 2024</p>
+                </div>
+            </div>
         </section>
         
         <section id="languages" class="reveal">
             <h3>Languages</h3>
             <ul>
-                <li><strong>Ukrainian</strong> - Native</li>
-                <li><strong>Polish</strong> - B2+</li>
-                <li><strong>English</strong> - B2</li>
+                <li><strong>Ukrainian / Russian</strong> - Native or Bilingual</li>
+                <li><strong>English / Polish</strong> - Professional Working</li>
+                <li><strong>German</strong> - Limited Working</li>
             </ul>
         </section>
 
